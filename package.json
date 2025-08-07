@@ -1,0 +1,198 @@
+{
+  "name": "knowcode",
+  "displayName": "KNOWCODE",
+  "description": "Interactive learning environment that turns code into explorable, teachable content with real-time explanations and visual overlays",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other",
+    "Programming Languages",
+    "Education"
+  ],
+  "activationEvents": [
+    "*",
+    "onLanguage:javascript",
+    "onLanguage:typescript",
+    "onLanguage:python",
+    "onLanguage:java",
+    "onLanguage:c",
+    "onLanguage:cpp",
+    "onLanguage:csharp",
+    "onLanguage:go",
+    "onLanguage:rust",
+    "onLanguage:php",
+    "onLanguage:ruby",
+    "onCommand:knowcode.explainSelection",
+    "onCommand:knowcode.explainFunction",
+    "onCommand:knowcode.explainVariable",
+    "onCommand:knowcode.showDiagram",
+    "onCommand:knowcode.toggleOverlay",
+    "onCommand:knowcode.explainWithMode",
+    "onCommand:knowcode.toggleLearningMode",
+    "onCommand:knowcode.generateMCQs",
+    "onCommand:knowcode.generateProjectIdeas",
+    "onCommand:knowcode.generateBoilerplate",
+    "onCommand:knowcode.generateAIComments",
+    "onCommand:knowcode.generateResumeBullet"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "knowcode.explainSelection",
+        "title": "KNOWCODE: Explain Selection",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.explainFunction",
+        "title": "KNOWCODE: Explain Function",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.explainVariable",
+        "title": "KNOWCODE: Explain Variable",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.showDiagram",
+        "title": "KNOWCODE: Show Diagram",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.toggleOverlay",
+        "title": "KNOWCODE: Toggle Overlay Mode",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.explainWithMode",
+        "title": "KNOWCODE: Explain with Mode",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.toggleLearningMode",
+        "title": "KNOWCODE: Toggle Learning Mode",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.generateMCQs",
+        "title": "KNOWCODE: Generate MCQs",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.generateProjectIdeas",
+        "title": "KNOWCODE: Generate Project Ideas",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.generateBoilerplate",
+        "title": "KNOWCODE: Generate Boilerplate",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.generateAIComments",
+        "title": "KNOWCODE: Generate AI Comments",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.generateResumeBullet",
+        "title": "KNOWCODE: Generate Resume Bullet",
+        "category": "KNOWCODE"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "knowcode.explainSelection",
+        "key": "ctrl+shift+e",
+        "mac": "cmd+shift+e",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "knowcode.explainWithMode",
+        "key": "ctrl+shift+m",
+        "mac": "cmd+shift+m",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "knowcode.toggleOverlay",
+        "key": "ctrl+shift+o",
+        "mac": "cmd+shift+o",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "knowcode.toggleLearningMode",
+        "key": "ctrl+shift+l",
+        "mac": "cmd+shift+l",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "knowcode.explainSelection",
+          "group": "KNOWCODE",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "knowcode.explainFunction",
+          "group": "KNOWCODE",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "knowcode.explainVariable",
+          "group": "KNOWCODE",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "KNOWCODE",
+      "properties": {
+        "knowcode.enableOverlay": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable real-time overlay explanations"
+        },
+        "knowcode.explanationStyle": {
+          "type": "string",
+          "enum": ["concise", "detailed", "visual"],
+          "default": "concise",
+          "description": "Style of explanations to show"
+        },
+        "knowcode.showDiagrams": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show visual diagrams for code structures"
+        },
+        "knowcode.autoExplain": {
+          "type": "boolean",
+          "default": false,
+          "description": "Automatically explain code on hover"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/node": "18.x",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "typescript": "^5.0.0",
+    "@vscode/test-electron": "^2.3.8",
+    "@types/mocha": "^10.0.0"
+  },
+  "dependencies": {
+    "marked": "^9.0.0",
+    "mermaid": "^10.0.0"
+  }
+} 
