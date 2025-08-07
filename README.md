@@ -159,7 +159,7 @@ KNOWCODE uses VS Code's webview API to display rich explanations and diagrams wi
 
 ## Roadmap
 
-### Phase 1: Core Features ✅
+### Phase 1: Core Features 
 - [x] Basic code explanation
 - [x] Visual overlays
 - [x] Diagram generation
