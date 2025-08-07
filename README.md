@@ -2,7 +2,7 @@
 
 KNOWCODE transforms your VS Code editor into an interactive learning environment that makes code readable, teachable, and explorable. Instead of static comments or passive documentation, it overlays real-time, context-aware explanations and diagrams directly on your code.
 
-## 🚀 Features
+##  Features
 
 ### Real-time Code Explanations
 - **Smart Code Analysis**: Automatically detects functions, variables, classes, and control flow structures
@@ -24,7 +24,7 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 - **Hover Explanations**: Enable auto-explanations on hover for quick insights
 - **Overlay Mode**: Toggle overlay mode for persistent visual learning
 
-## 🎯 Use Cases
+##  Use Cases
 
 ### For Learning
 - **Code Comprehension**: Understand unfamiliar codebases quickly
@@ -41,7 +41,7 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 - **Debugging Aid**: Understand code flow and relationships
 - **Architecture Understanding**: Visualize class hierarchies and function relationships
 
-## 📋 Commands
+##  Commands
 
 | Command | Shortcut | Description |
 |---------|----------|-------------|
@@ -51,7 +51,7 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 | `KNOWCODE: Show Diagram` | Context Menu | Generate diagram for selected code |
 | `KNOWCODE: Toggle Overlay` | `Ctrl+Shift+O` | Toggle overlay mode |
 
-## ⚙️ Configuration
+## Configuration
 
 ### Settings
 
@@ -73,7 +73,7 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 }
 ```
 
-## 🛠️ Installation
+## Installation
 
 ### From Source
 
@@ -107,7 +107,7 @@ npm test
 npm run lint
 ```
 
-## 🎨 How It Works
+##  How It Works
 
 ### Architecture
 
@@ -137,7 +137,7 @@ KNOWCODE is built with a modular architecture consisting of four core services:
 - **PHP**: Functions, classes, variables, namespaces
 - **Ruby**: Methods, classes, variables, blocks
 
-## 🔧 Extension API
+## Extension API
 
 ### Activation Events
 
@@ -157,7 +157,7 @@ KNOWCODE uses VS Code's webview API to display rich explanations and diagrams wi
 - Mermaid.js integration for diagrams
 - Responsive design that adapts to VS Code themes
 
-## 🎯 Roadmap
+## Roadmap
 
 ### Phase 1: Core Features ✅
 - [x] Basic code explanation
@@ -183,7 +183,7 @@ KNOWCODE uses VS Code's webview API to display rich explanations and diagrams wi
 - [ ] Mobile companion app
 - [ ] Enterprise features
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
@@ -202,17 +202,17 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - Add JSDoc comments for public APIs
 - Write unit tests for new features
 
-## 📄 License
+##  License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - VS Code Extension API for the powerful extension platform
 - Mermaid.js for beautiful diagram generation
 - The open-source community for inspiration and tools
 
-## 📞 Support
+##  Support
 
 - **Issues**: [GitHub Issues](https://github.com/your-org/knowcode/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/your-org/knowcode/discussions)
