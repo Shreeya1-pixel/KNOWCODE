@@ -23,6 +23,8 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 - **Click-to-Explain**: Click on any code element to get instant explanations
 - **Hover Explanations**: Enable auto-explanations on hover for quick insights
 - **Overlay Mode**: Toggle overlay mode for persistent visual learning
+- <img width="2216" height="2007" alt="image" src="https://github.com/user-attachments/assets/8843d027-b1fc-4430-a995-06b5557f80dd" />
+
 
 ##  Use Cases
 
