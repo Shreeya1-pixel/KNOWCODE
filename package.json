@@ -35,7 +35,16 @@
     "onCommand:knowcode.generateProjectIdeas",
     "onCommand:knowcode.generateBoilerplate",
     "onCommand:knowcode.generateAIComments",
-    "onCommand:knowcode.generateResumeBullet"
+    "onCommand:knowcode.generateResumeBullet",
+    "onCommand:knowcode.openSetup",
+    "onCommand:knowcode.testLocalModel",
+    "onCommand:knowcode.showModelInfo",
+    "onCommand:knowcode.restartOllama",
+    "onCommand:knowcode.openPanel",
+    "onCommand:knowcode.manageAPIKeys",
+    "onCommand:knowcode.showAPIKeyStatus",
+    "onCommand:knowcode.setAIPreference",
+    "onCommand:knowcode.testAIConnections"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -99,6 +108,51 @@
         "command": "knowcode.generateResumeBullet",
         "title": "KNOWCODE: Generate Resume Bullet",
         "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.openSetup",
+        "title": "KNOWCODE: Open Setup",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.testLocalModel",
+        "title": "KNOWCODE: Test Local Model",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.showModelInfo",
+        "title": "KNOWCODE: Show Model Info",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.restartOllama",
+        "title": "KNOWCODE: Restart Ollama",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.openPanel",
+        "title": "KNOWCODE: Open Panel",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.manageAPIKeys",
+        "title": "KNOWCODE: Manage API Keys",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.showAPIKeyStatus",
+        "title": "KNOWCODE: Show API Key Status",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.setAIPreference",
+        "title": "KNOWCODE: Set AI Preference",
+        "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.testAIConnections",
+        "title": "KNOWCODE: Test AI Connections",
+        "category": "KNOWCODE"
       }
     ],
     "keybindings": [
@@ -124,6 +178,12 @@
         "command": "knowcode.toggleLearningMode",
         "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "knowcode.openPanel",
+        "key": "ctrl+shift+p",
+        "mac": "cmd+shift+p",
         "when": "editorTextFocus"
       }
     ],
@@ -169,6 +229,36 @@
           "type": "boolean",
           "default": false,
           "description": "Automatically explain code on hover"
+        },
+        "knowcode.useLocalModel": {
+          "type": "boolean",
+          "default": true,
+          "description": "Use local Ollama model instead of cloud API"
+        },
+        "knowcode.localModelName": {
+          "type": "string",
+          "default": "codellama:7b-code",
+          "description": "Name of the local model to use"
+        },
+        "knowcode.ollamaEndpoint": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama API endpoint"
+        },
+        "knowcode.cloudApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "API key for cloud-based models (if not using local model)"
+        },
+        "knowcode.customAPIEndpoint": {
+          "type": "string",
+          "default": "",
+          "description": "Custom API endpoint URL for your own AI service"
+        },
+        "knowcode.customAPIHeaders": {
+          "type": "string",
+          "default": "{}",
+          "description": "Custom headers for your API (JSON format, e.g., {\"X-API-Key\": \"your-key\"})"
         }
       }
     }

@@ -24,6 +24,41 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 - **Hover Explanations**: Enable auto-explanations on hover for quick insights
 - **Overlay Mode**: Toggle overlay mode for persistent visual learning
 
+## 🎯 MVP Features
+
+### 🎯 **5 Core Features**
+
+#### 1. **👶 Explain Like I'm 5**
+- AI simplifies code into ultra-simple language
+- Uses everyday analogies (recipes, boxes, toys)
+- Perfect for absolute beginners
+- Makes complex concepts accessible
+
+#### 2. **🎓 Learning Mode**
+- Step-by-step explanations with code snippets
+- Line-by-line breakdown of functionality
+- Educational approach for beginners
+- Pauses after key concepts
+
+#### 3. **💡 Generate Project Idea**
+- Creates project ideas based on selected code
+- Suggests relevant learning paths
+- Provides scaffolded project structure
+- Links to learning resources
+
+#### 4. **🎯 Interview Mode**
+- Explains code as if in a technical interview
+- Covers time complexity analysis
+- Discusses design decisions and trade-offs
+- Provides optimization suggestions
+- Generates follow-up questions
+
+#### 5. **❓ MCQ Generator**
+- Turns code into quiz questions
+- Tests understanding of concepts
+- Provides explanations for answers
+- Perfect for self-assessment
+
 ## 🎯 Use Cases
 
 ### For Learning
@@ -45,11 +80,17 @@ KNOWCODE transforms your VS Code editor into an interactive learning environment
 
 | Command | Shortcut | Description |
 |---------|----------|-------------|
+| `KNOWCODE: Explain with Mode` | `Ctrl+Shift+M` | **MVP**: Choose explanation mode (Explain Like I'm 5, Learning Mode, Interview Mode, etc.) |
+| `KNOWCODE: Toggle Learning Mode` | `Ctrl+Shift+L` | **MVP**: Toggle educational learning mode |
 | `KNOWCODE: Explain Selection` | `Ctrl+Shift+E` | Explain selected code |
 | `KNOWCODE: Explain Function` | Context Menu | Explain function at cursor |
 | `KNOWCODE: Explain Variable` | Context Menu | Explain variable at cursor |
 | `KNOWCODE: Show Diagram` | Context Menu | Generate diagram for selected code |
 | `KNOWCODE: Toggle Overlay` | `Ctrl+Shift+O` | Toggle overlay mode |
+| `KNOWCODE: Generate MCQs` | Command Palette | **MVP**: Generate quiz questions from code |
+| `KNOWCODE: Generate Project Ideas` | Command Palette | **MVP**: Get project suggestions based on code |
+| `KNOWCODE: Generate AI Comments` | Command Palette | Add intelligent comments to code |
+| `KNOWCODE: Generate Resume Bullet` | Command Palette | Create resume bullets from code |
 
 ## ⚙️ Configuration
 

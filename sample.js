@@ -1,7 +1,7 @@
 // KNOWCODE Sample File - Demonstrates various code patterns for testing
 
 // Variable declarations
-const userName = "John Doe";
+5const userName = "John Doe";
 let userAge = 25;
 var userEmail = "john@example.com";
 
