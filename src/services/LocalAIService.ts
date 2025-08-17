@@ -53,14 +53,26 @@ Context:
 Code:
 ${code}
 
-Return JSON only, matching the schema for the selected mode.
+Return JSON only, matching the schema for the selected mode. Include a Mermaid diagram that shows the code flow visually.
+
 Schema ID: eli5_v1
 {
-  "analogy": "string, <= 2 sentences",
+  "analogy": "string, <= 2 sentences, use creative analogies like 'it's like a factory assembly line' or 'it's like sorting toys'",
   "bullets": ["string, 3-5 items, plain language"],
   "glossary": [{"term": "string", "meaning": "string"}],
+  "mermaidDiagram": "string, mermaid flowchart showing code logic",
   "assumptions": ["string, optional"]
-}`;
+}
+
+For the mermaidDiagram, create a simple flowchart that shows the main steps of the code. Use simple shapes and clear labels. Example:
+\`\`\`mermaid
+flowchart TD
+    A[Start] --> B[Check condition]
+    B -->|Yes| C[Do something]
+    B -->|No| D[Do something else]
+    C --> E[End]
+    D --> E
+\`\`\``;
     }
 
     private buildLearningPrompt(code: string, language: string): string {
@@ -73,7 +85,8 @@ Context:
 Code:
 ${code}
 
-Return JSON only, matching the schema for the selected mode.
+Return JSON only, matching the schema for the selected mode. Include Mermaid diagrams for visual learning.
+
 Schema ID: learn_v1
 {
   "steps": [{
@@ -81,6 +94,7 @@ Schema ID: learn_v1
     "explanation": "string",
     "codeSnippet": "string",
     "complexity": "beginner|intermediate|advanced",
+    "mermaidDiagram": "string, optional mermaid diagram for this step",
     "nextStep": "string?"
   }]
 }`;
@@ -96,7 +110,8 @@ Context:
 Code:
 ${code}
 
-Return JSON only, matching the schema for the selected mode.
+Return JSON only, matching the schema for the selected mode. Include a Mermaid diagram showing the algorithm flow.
+
 Schema ID: interview_v1
 {
   "overview": "string",
@@ -104,6 +119,7 @@ Schema ID: interview_v1
   "spaceComplexity": "string",
   "tradeoffs": ["string"],
   "optimizations": ["string"],
+  "mermaidDiagram": "string, mermaid diagram showing algorithm flow",
   "followUpQuestions": ["string"]
 }`;
     }
@@ -119,6 +135,7 @@ Code:
 ${code}
 
 Return JSON only, matching the schema for the selected mode.
+
 Schema ID: mcq_v1
 {
   "questions": [{
@@ -142,6 +159,7 @@ Code:
 ${code}
 
 Return JSON only, matching the schema for the selected mode.
+
 Schema ID: project_v1
 {
   "project": {

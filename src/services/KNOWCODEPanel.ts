@@ -179,6 +179,7 @@ export class KNOWCODEPanel {
             const text = editor.document.getText(selection);
             
             if (!text.trim()) {
+                vscode.window.showInformationMessage('💡 Tip: Select 5-20 lines of code for the best explanations! Too much code can be overwhelming, too little might not provide enough context.');
                 vscode.window.showErrorMessage('Please select some code to explain.');
                 return;
             }

@@ -89,39 +89,88 @@ export class TutorialPanel {
                     border-left: 4px solid var(--vscode-textPreformat-foreground);
                     margin: 10px 0;
                 }
+                .highlight {
+                    background: var(--vscode-textPreformat-foreground);
+                    color: var(--vscode-textPreformat-background);
+                    padding: 2px 6px;
+                    border-radius: 3px;
+                    font-weight: bold;
+                }
                 .footer {
                     text-align: center;
                     color: var(--vscode-descriptionForeground);
                     font-size: 0.9em;
                     margin-top: 30px;
                 }
+                .demo-code {
+                    background: var(--vscode-textBlockQuote-background);
+                    padding: 15px;
+                    border-radius: 4px;
+                    font-family: 'Monaco', 'Menlo', monospace;
+                    border-left: 4px solid var(--vscode-textLink-foreground);
+                    margin: 10px 0;
+                    position: relative;
+                }
+                .demo-code::before {
+                    content: "Try selecting this code!";
+                    position: absolute;
+                    top: -10px;
+                    left: 10px;
+                    background: var(--vscode-textLink-foreground);
+                    color: white;
+                    padding: 2px 8px;
+                    border-radius: 3px;
+                    font-size: 11px;
+                    font-weight: bold;
+                }
             </style>
         </head>
         <body>
             <div class="header">
                 <h1>KNOWCODE Tutorial</h1>
-                <p>Learn how to use KNOWCODE to understand code better</p>
+                <p>Learn how to use KNOWCODE to understand code better with analogies and visual diagrams</p>
             </div>
 
             <div class="section">
-                <h2>Quick Start</h2>
+                <h2>Quick Start (30 seconds)</h2>
                 <div class="step">
-                    <span class="step-number">1.</span> Select some code in your editor
+                    <span class="step-number">1.</span> <span class="highlight">Select a few lines of code</span> in your editor (this is important!)
                 </div>
                 <div class="step">
                     <span class="step-number">2.</span> Press <span class="keybinding">Ctrl+Shift+5</span> (or <span class="keybinding">Cmd+Shift+5</span> on Mac) for "Explain Like I'm 5"
                 </div>
                 <div class="step">
-                    <span class="step-number">3.</span> Get a simple, easy-to-understand explanation!
+                    <span class="step-number">3.</span> Get a simple explanation with <span class="highlight">analogies and visual diagrams</span>!
                 </div>
+                
+                <div class="tip">
+                    <strong>Pro Tip:</strong> Select 5-20 lines of code for the best explanations. Too much code can be overwhelming, too little might not provide enough context.
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Try This Example</h2>
+                <p>Copy this code into a new file and try KNOWCODE:</p>
+                <div class="demo-code">
+function calculateTotal(items) {
+    return items
+        .filter(item => item.inStock)
+        .map(item => item.price * item.quantity)
+        .reduce((sum, price) => sum + price, 0);
+}
+                </div>
+                <p>Select the function and press <span class="keybinding">Ctrl+Shift+5</span> to see it explained with analogies!</p>
             </div>
 
             <div class="section">
                 <h2>Available Features</h2>
                 
                 <h3>Explain Like I'm 5</h3>
-                <p>Get simple explanations using analogies and plain language.</p>
+                <p>Get simple explanations using analogies, visual diagrams, and plain language.</p>
                 <div class="keybinding">Ctrl+Shift+5</div>
+                <div class="tip">
+                    <strong>What you'll get:</strong> Analogies (like "it's like sorting toys"), bullet points, glossary terms, and Mermaid diagrams showing the code flow.
+                </div>
                 
                 <h3>Learning Mode</h3>
                 <p>Step-by-step learning progression with increasing complexity.</p>
@@ -141,13 +190,25 @@ export class TutorialPanel {
             </div>
 
             <div class="section">
-                <h2>Example Code to Try</h2>
-                <div class="code-example">
-// Try selecting this code and using KNOWCODE!
-const result = data.reduce((acc, curr) => 
-  acc.concat(curr.filter(x => x.status === 'active')
-    .map(x => ({ ...x, processed: true }))), []);
-                </div>
+                <h2>What Makes KNOWCODE Special</h2>
+                
+                <h3>Analogies & Visual Learning</h3>
+                <p>KNOWCODE doesn't just explain code - it makes it relatable:</p>
+                <ul>
+                    <li><strong>Analogies:</strong> "This function is like a factory assembly line"</li>
+                    <li><strong>Visual Diagrams:</strong> Mermaid flowcharts showing code logic</li>
+                    <li><strong>Simple Language:</strong> No jargon, just clear explanations</li>
+                    <li><strong>Step-by-Step:</strong> Break complex code into digestible pieces</li>
+                </ul>
+                
+                <h3>Perfect for Learning</h3>
+                <p>Whether you're a beginner or experienced developer:</p>
+                <ul>
+                    <li><strong>Beginners:</strong> Understand complex code with simple analogies</li>
+                    <li><strong>Students:</strong> Learn programming concepts visually</li>
+                    <li><strong>Professionals:</strong> Quickly understand unfamiliar codebases</li>
+                    <li><strong>Teachers:</strong> Create educational content with diagrams</li>
+                </ul>
             </div>
 
             <div class="section">
@@ -187,13 +248,15 @@ const result = data.reduce((acc, curr) =>
             </div>
 
             <div class="section">
-                <h2>Pro Tips</h2>
+                <h2>Pro Tips for Best Results</h2>
                 <ul>
-                    <li>Select specific functions or code blocks for better explanations</li>
+                    <li><span class="highlight">Select 5-20 lines</span> of code for optimal explanations</li>
+                    <li>Choose complete functions or logical code blocks</li>
                     <li>Use Learning Mode for complex algorithms</li>
                     <li>Generate MCQs to test your understanding</li>
                     <li>Use Interview Mode to prepare for technical interviews</li>
                     <li>Create projects from interesting code snippets</li>
+                    <li>Look for analogies and visual diagrams in explanations</li>
                 </ul>
             </div>
 

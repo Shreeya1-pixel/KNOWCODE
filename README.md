@@ -5,9 +5,9 @@
 ## Features
 
 ### 🎯 Core Features
-- **Explain Like I'm 5** - Simple, analogy-based explanations
-- **Learning Mode** - Step-by-step progressive learning
-- **Interview Mode** - Technical analysis with complexity assessment
+- **Explain Like I'm 5** - Simple, analogy-based explanations with visual diagrams
+- **Learning Mode** - Step-by-step progressive learning with flowcharts
+- **Interview Mode** - Technical analysis with complexity assessment and algorithm diagrams
 - **MCQ Generator** - Create multiple-choice questions
 - **Project Generator** - Turn code into learning projects
 
@@ -26,7 +26,7 @@
 
 3. **Start Learning**:
    - Open any code file
-   - Select some code
+   - **Select 5-20 lines of code** (this is important for best results!)
    - Press `Ctrl+Shift+5` for "Explain Like I'm 5"
    - Or use `Ctrl+Shift+P` and type "KNOWCODE"
 
@@ -45,7 +45,7 @@ KNOWCODE uses local AI (Ollama) to provide:
 - **Privacy** - Your code never leaves your machine
 - **Speed** - No API calls, instant responses
 - **Offline** - Works without internet
-- **Structured** - JSON-formatted explanations
+- **Structured** - JSON-formatted explanations with Mermaid diagrams
 
 ## Example Output
 
@@ -70,7 +70,8 @@ const result = data.reduce((acc, curr) =>
     {"term": "reduce", "meaning": "A way to go through a list and build one final result."},
     {"term": "filter", "meaning": "Keeps only items that meet a condition."},
     {"term": "map", "meaning": "Transforms each item into a new form."}
-  ]
+  ],
+  "mermaidDiagram": "flowchart TD\n    A[Start with data] --> B[Filter active items]\n    B --> C[Add processed sticker]\n    C --> D[Merge into one list]\n    D --> E[Return result]"
 }
 ```
 
