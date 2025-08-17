@@ -64,6 +64,11 @@
         "command": "knowcode.openPanel",
         "title": "KNOWCODE: Open Panel",
         "category": "KNOWCODE"
+      },
+      {
+        "command": "knowcode.setupOllama",
+        "title": "KNOWCODE: Setup Ollama",
+        "category": "KNOWCODE"
       }
     ],
     "keybindings": [

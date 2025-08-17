@@ -2,10 +2,12 @@ import * as vscode from 'vscode';
 import { LocalAIService } from './services/LocalAIService';
 import { KNOWCODEPanel } from './services/KNOWCODEPanel';
 import { TutorialPanel } from './services/TutorialPanel';
+import { SetupManager } from './services/SetupManager';
 
 let localAIService: LocalAIService;
 let knowcodePanel: KNOWCODEPanel;
 let tutorialPanel: TutorialPanel;
+let setupManager: SetupManager;
 
 export function activate(context: vscode.ExtensionContext) {
     console.log('KNOWCODE extension is now active!');
@@ -14,6 +16,14 @@ export function activate(context: vscode.ExtensionContext) {
     localAIService = new LocalAIService();
     knowcodePanel = new KNOWCODEPanel(context, localAIService);
     tutorialPanel = new TutorialPanel(context);
+    setupManager = new SetupManager(context);
+
+    // Check and setup Ollama automatically
+    setupManager.checkAndSetupOllama().then(success => {
+        if (success) {
+            vscode.window.showInformationMessage('KNOWCODE is ready! Press Ctrl+Shift+P (Cmd+Shift+P on Mac) and type "KNOWCODE" to get started.');
+        }
+    });
 
     // Register commands
     const explainLike5 = vscode.commands.registerCommand('knowcode.explainLike5', async () => {
@@ -39,7 +49,23 @@ export function activate(context: vscode.ExtensionContext) {
             if (response.success) {
                 await showExplanation(response.content, 'Explain Like I\'m 5');
             } else {
-                vscode.window.showErrorMessage(`Failed to generate explanation: ${response.error}`);
+                if (response.error?.includes('Failed to call Ollama')) {
+                    // Offer to setup Ollama if it's not available
+                    const setupChoice = await vscode.window.showErrorMessage(
+                        'Ollama is not available. Would you like to install it now?',
+                        'Install Ollama',
+                        'Manual Setup',
+                        'Cancel'
+                    );
+                    
+                    if (setupChoice === 'Install Ollama') {
+                        await setupManager.checkAndSetupOllama();
+                    } else if (setupChoice === 'Manual Setup') {
+                        tutorialPanel.createPanel();
+                    }
+                } else {
+                    vscode.window.showErrorMessage(`Failed to generate explanation: ${response.error}`);
+                }
             }
         } catch (error) {
             vscode.window.showErrorMessage(`Error: ${error}`);
@@ -172,6 +198,13 @@ export function activate(context: vscode.ExtensionContext) {
         knowcodePanel.createPanel();
     });
 
+    const setupOllama = vscode.commands.registerCommand('knowcode.setupOllama', async () => {
+        const success = await setupManager.checkAndSetupOllama();
+        if (success) {
+            vscode.window.showInformationMessage('Ollama setup completed successfully! KNOWCODE is ready to use.');
+        }
+    });
+
     // Add commands to context
     context.subscriptions.push(
         explainLike5,
@@ -180,7 +213,8 @@ export function activate(context: vscode.ExtensionContext) {
         generateMCQs,
         generateProject,
         openTutorial,
-        openPanel
+        openPanel,
+        setupOllama
     );
 
     // Show welcome message

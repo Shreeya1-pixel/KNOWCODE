@@ -12,17 +12,15 @@
 - **Project Generator** - Turn code into learning projects
 
 ### 🚀 Quick Start
-1. **Install Ollama** (for local AI):
-   ```bash
-   curl -fsSL https://ollama.ai/install.sh | sh
-   ollama pull llama3.1:8b-instruct
-   ollama serve
-   ```
-
-2. **Install KNOWCODE Extension**:
+1. **Install KNOWCODE Extension**:
    - Download the `.vsix` file
    - In VS Code: `Ctrl+Shift+P` → "Extensions: Install from VSIX"
    - Select the downloaded file
+
+2. **Automatic Setup**:
+   - KNOWCODE will automatically detect if Ollama is needed
+   - Click "Install Ollama" when prompted for one-click installation
+   - The AI model will be downloaded automatically (~4GB)
 
 3. **Start Learning**:
    - Open any code file
@@ -46,6 +44,7 @@ KNOWCODE uses local AI (Ollama) to provide:
 - **Speed** - No API calls, instant responses
 - **Offline** - Works without internet
 - **Structured** - JSON-formatted explanations with Mermaid diagrams
+- **Automatic Setup** - One-click Ollama installation and model download
 
 ## Example Output
 
@@ -77,13 +76,35 @@ const result = data.reduce((acc, curr) =>
 
 ## Setup Options
 
-### Local AI (Recommended)
-- **Privacy-focused** - No data sent to external servers
-- **Free** - No API costs
-- **Fast** - Runs on your machine
-- **Offline** - Works without internet
+### 🎯 **Automatic Setup (Recommended)**
+- **One-click installation** - KNOWCODE handles everything
+- **Cross-platform** - Works on Windows, macOS, and Linux
+- **Smart detection** - Automatically detects if Ollama is needed
+- **Model download** - Downloads the AI model automatically
 
-### Cloud AI (Optional)
+### 🔧 **Manual Setup (Alternative)**
+If you prefer manual installation:
+
+1. **Install Ollama**:
+   ```bash
+   # macOS/Linux
+   curl -fsSL https://ollama.ai/install.sh | sh
+   
+   # Windows
+   # Download from https://ollama.ai/download
+   ```
+
+2. **Download Model**:
+   ```bash
+   ollama pull llama2:7b-chat
+   ```
+
+3. **Start Ollama**:
+   ```bash
+   ollama serve
+   ```
+
+### ☁️ **Cloud AI (Optional)**
 - Get OpenAI API key
 - Open VS Code Settings
 - Search for "KNOWCODE"
@@ -100,8 +121,8 @@ const result = data.reduce((acc, curr) =>
 ## Requirements
 
 - VS Code 1.85.0 or higher
-- Node.js (for local AI)
 - 4GB RAM (for local AI models)
+- Internet connection (for initial setup only)
 
 ## Installation
 
@@ -111,6 +132,20 @@ const result = data.reduce((acc, curr) =>
 4. Type "Extensions: Install from VSIX"
 5. Select the downloaded file
 6. Restart VS Code
+7. **KNOWCODE will automatically guide you through setup!**
+
+## Commands
+
+| Command | Description |
+|---------|-------------|
+| `KNOWCODE: Explain Like I'm 5` | Simple explanations with analogies |
+| `KNOWCODE: Learning Mode` | Step-by-step learning |
+| `KNOWCODE: Interview Mode` | Technical analysis |
+| `KNOWCODE: Generate MCQs` | Create quiz questions |
+| `KNOWCODE: Generate Project` | Turn code into projects |
+| `KNOWCODE: Setup Ollama` | Manual Ollama installation |
+| `KNOWCODE: Open Tutorial` | Built-in usage guide |
+| `KNOWCODE: Open Panel` | Quick access panel |
 
 ## Support
 
