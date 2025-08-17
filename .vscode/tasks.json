@@ -7,7 +7,8 @@
             "group": "build",
             "presentation": {
                 "panel": "shared",
-                "reveal": "silent"
+                "reveal": "silent",
+                "clear": false
             },
             "problemMatcher": "$tsc"
         },
@@ -17,20 +18,11 @@
             "group": "build",
             "presentation": {
                 "panel": "shared",
-                "reveal": "never"
+                "reveal": "never",
+                "clear": false
             },
             "isBackground": true,
             "problemMatcher": "$tsc-watch"
-        },
-        {
-            "type": "npm",
-            "script": "lint",
-            "group": "build",
-            "presentation": {
-                "panel": "shared",
-                "reveal": "silent"
-            },
-            "problemMatcher": "$eslint-stylish"
         }
     ]
 } 

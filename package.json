@@ -25,7 +25,7 @@
     "tutorial"
   ],
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -121,8 +121,8 @@
         },
         "knowcode.localModelName": {
           "type": "string",
-          "default": "llama3.1:8b-instruct",
-          "description": "Local model to use (install with: ollama pull llama3.1:8b-instruct)"
+          "default": "llama2:7b-chat",
+          "description": "Local model to use (install with: ollama pull llama2:7b-chat)"
         },
         "knowcode.ollamaEndpoint": {
           "type": "string",
