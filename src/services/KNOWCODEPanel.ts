@@ -1,31 +1,12 @@
 import * as vscode from 'vscode';
-import { LocalModelService } from './LocalModelService';
-import { UnifiedAIService } from './UnifiedAIService';
-import { APIKeyManager } from './APIKeyManager';
-import { OverlayManager } from './OverlayManager';
-import { AIEnhancer } from './AIEnhancer';
+import { LocalAIService } from './LocalAIService';
 
 export class KNOWCODEPanel {
-    private static instance: KNOWCODEPanel;
     private panel: vscode.WebviewPanel | undefined;
-    private localModelService: LocalModelService;
-    private unifiedAIService: UnifiedAIService;
-    private overlayManager: OverlayManager;
-    private aiEnhancer: AIEnhancer;
+    private localAIService: LocalAIService;
 
-    private constructor() {
-        this.localModelService = LocalModelService.getInstance();
-        const apiKeyManager = APIKeyManager.getInstance();
-        this.unifiedAIService = UnifiedAIService.getInstance(apiKeyManager);
-        this.overlayManager = new OverlayManager();
-        this.aiEnhancer = AIEnhancer.getInstance();
-    }
-
-    public static getInstance(): KNOWCODEPanel {
-        if (!KNOWCODEPanel.instance) {
-            KNOWCODEPanel.instance = new KNOWCODEPanel();
-        }
-        return KNOWCODEPanel.instance;
+    constructor(context: vscode.ExtensionContext, localAIService: LocalAIService) {
+        this.localAIService = localAIService;
     }
 
     public createPanel(): void {
@@ -101,219 +82,83 @@ export class KNOWCODEPanel {
                         background-color: var(--vscode-button-activeBackground);
                     }
                     
-                    .explanation {
+                    .status {
                         margin-top: 20px;
-                        padding: 15px;
-                        background-color: var(--vscode-editor-inactiveSelectionBackground);
-                        border-radius: 4px;
-                        font-size: 13px;
-                        line-height: 1.4;
-                    }
-                    
-                    .loading {
-                        text-align: center;
-                        color: var(--vscode-descriptionForeground);
-                        font-style: italic;
-                    }
-                    
-                    .error {
-                        color: var(--vscode-errorForeground);
-                        background-color: var(--vscode-inputValidation-errorBackground);
                         padding: 10px;
+                        background-color: var(--vscode-input-background);
+                        border: 1px solid var(--vscode-input-border);
                         border-radius: 4px;
-                        margin-top: 10px;
+                        font-size: 12px;
+                    }
+                    
+                    .keybinding {
+                        background: var(--vscode-textBlockQuote-background);
+                        padding: 2px 6px;
+                        border-radius: 3px;
+                        font-family: 'Monaco', 'Menlo', monospace;
+                        font-size: 12px;
+                        margin-left: 8px;
                     }
                 </style>
             </head>
             <body>
-                <div class="header">🚀 KNOWCODE - AI Code Companion</div>
+                <div class="header">KNOWCODE - Code Learning Assistant</div>
                 
-                <div style="margin-bottom: 15px; font-size: 12px; color: var(--vscode-descriptionForeground);">
-                    💡 <strong>How to use:</strong><br>
-                    1. Open a code file in the editor<br>
-                    2. Select some code (or leave empty to analyze entire file)<br>
-                    3. Click any button for instant AI magic!
+                <button class="button" onclick="explainLike5()">
+                    Explain Like I'm 5 <span class="keybinding">Ctrl+Shift+5</span>
+                </button>
+                
+                <button class="button" onclick="learningMode()">
+                    Learning Mode <span class="keybinding">Ctrl+Shift+L</span>
+                </button>
+                
+                <button class="button" onclick="interviewMode()">
+                    Interview Mode <span class="keybinding">Ctrl+Shift+I</span>
+                </button>
+                
+                <button class="button" onclick="generateMCQs()">
+                    Generate MCQs
+                </button>
+                
+                <button class="button" onclick="generateProject()">
+                    Generate Project
+                </button>
+                
+                <button class="button" onclick="openTutorial()">
+                    Open Tutorial
+                </button>
+                
+                <div class="status" id="status">
+                    Ready to help you understand code!
                 </div>
-                
-                <button class="button" onclick="explainLike5()">👶 Explain like I'm 5</button>
-                <button class="button" onclick="generateProjectIdea()">💡 Generate Project Idea</button>
-                <button class="button" onclick="addResumeBullet()">📄 Add Resume Bullet</button>
-                <button class="button" onclick="generateAIComments()">💬 Generate AI Comments</button>
-                <button class="button" onclick="stepByStepWalkthrough()">🔍 Step-by-Step Walkthrough</button>
-                <button class="button" onclick="plainEnglishTranslation()">🗣️ Translate to Plain English</button>
-                <button class="button" onclick="spotTheBug()">🐛 Spot the Bug</button>
-                
-                <div style="margin: 20px 0; border-top: 1px solid var(--vscode-panel-border); padding-top: 15px;">
-                    <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px;">🎯 Advanced Features</div>
-                </div>
-                
-                <button class="button" onclick="generateCodeStory()">📖 Turn Code into Story</button>
-                <button class="button" onclick="generateCodeOptimization()">⚡ Performance Optimization</button>
-                <button class="button" onclick="generateCodeChallenge()">🎮 Create Coding Challenge</button>
-                <button class="button" onclick="generateCodeMeme()">😂 Generate Code Meme</button>
-                <button class="button" onclick="generateCodePrediction()">🔮 Future Prediction</button>
-                <button class="button" onclick="generateCodeTutorial()">📚 Create Tutorial</button>
-                <button class="button" onclick="generateCodeQuiz()">❓ Interactive Quiz</button>
-                <button class="button" onclick="generateCodePortfolio()">🎨 Portfolio Showcase</button>
-                
-                <div id="status" style="margin-top: 15px; padding: 10px; background-color: var(--vscode-editor-inactiveSelectionBackground); border-radius: 4px; font-size: 12px; color: var(--vscode-descriptionForeground);">
-                    📄 <strong>Current File:</strong> <span id="currentFile">No file open</span><br>
-                    📝 <strong>Selected Code:</strong> <span id="selectedCode">None</span><br>
-                    <button onclick="updateStatus()" style="margin-top: 5px; padding: 5px 10px; background-color: var(--vscode-button-background); color: var(--vscode-button-foreground); border: none; border-radius: 3px; cursor: pointer; font-size: 11px;">🔄 Refresh Status</button>
-                </div>
-                
-                <div id="explanation" class="explanation" style="display: none;"></div>
-                
+
                 <script>
-                    const vscode = acquireVsCodeApi();
-                    
                     function explainLike5() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'explainLike5'
-                        });
+                        vscode.postMessage({ command: 'explainLike5' });
                     }
                     
-                    function generateProjectIdea() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateProjectIdea'
-                        });
+                    function learningMode() {
+                        vscode.postMessage({ command: 'learningMode' });
                     }
                     
-                    function addResumeBullet() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'addResumeBullet'
-                        });
+                    function interviewMode() {
+                        vscode.postMessage({ command: 'interviewMode' });
                     }
                     
-                    function generateAIComments() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateAIComments'
-                        });
+                    function generateMCQs() {
+                        vscode.postMessage({ command: 'generateMCQs' });
                     }
                     
-                    function stepByStepWalkthrough() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'stepByStepWalkthrough'
-                        });
+                    function generateProject() {
+                        vscode.postMessage({ command: 'generateProject' });
                     }
                     
-                    function plainEnglishTranslation() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'plainEnglishTranslation'
-                        });
+                    function openTutorial() {
+                        vscode.postMessage({ command: 'openTutorial' });
                     }
                     
-                    function spotTheBug() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'spotTheBug'
-                        });
-                    }
-                    
-                    function generateCodeStory() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeStory'
-                        });
-                    }
-                    
-                    function generateCodeOptimization() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeOptimization'
-                        });
-                    }
-                    
-                    function generateCodeChallenge() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeChallenge'
-                        });
-                    }
-                    
-                    function generateCodeMeme() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeMeme'
-                        });
-                    }
-                    
-                    function generateCodePrediction() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodePrediction'
-                        });
-                    }
-                    
-                    function generateCodeTutorial() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeTutorial'
-                        });
-                    }
-                    
-                    function generateCodeQuiz() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodeQuiz'
-                        });
-                    }
-                    
-                    function generateCodePortfolio() {
-                        showLoading();
-                        vscode.postMessage({
-                            command: 'generateCodePortfolio'
-                        });
-                    }
-                    
-                    function updateStatus() {
-                        vscode.postMessage({
-                            command: 'updateStatus'
-                        });
-                    }
-                    
-                    function showLoading() {
-                        const explanation = document.getElementById('explanation');
-                        explanation.style.display = 'block';
-                        explanation.innerHTML = '<div class="loading">Generating explanation...</div>';
-                    }
-                    
-                    function showError(message) {
-                        const explanation = document.getElementById('explanation');
-                        explanation.style.display = 'block';
-                        explanation.innerHTML = '<div class="error">Error: ' + message + '</div>';
-                    }
-                    
-                    function showExplanation(content) {
-                        const explanation = document.getElementById('explanation');
-                        explanation.style.display = 'block';
-                        explanation.innerHTML = content;
-                    }
-                    
-                    window.addEventListener('message', event => {
-                        const message = event.data;
-                        switch (message.command) {
-                            case 'showExplanation':
-                                showExplanation(message.content);
-                                break;
-                            case 'showError':
-                                showError(message.error);
-                                break;
-                            case 'updateStatusDisplay':
-                                document.getElementById('currentFile').textContent = message.fileName;
-                                document.getElementById('selectedCode').textContent = message.selectedCode;
-                                break;
-                        }
-                    });
-                    
-                    // Update status when page loads
-                    updateStatus();
+                    // Get the VS Code API
+                    const vscode = acquireVsCodeApi();
                 </script>
             </body>
             </html>
@@ -325,219 +170,153 @@ export class KNOWCODEPanel {
 
         this.panel.webview.onDidReceiveMessage(async (message) => {
             const editor = vscode.window.activeTextEditor;
-            let text = '';
-            let context = '';
-
             if (!editor) {
-                // If no active editor, show a helpful message and suggest opening a file
-                this.showError('No active editor found. Please open a code file first, then select some code and try again.');
+                vscode.window.showErrorMessage('No active editor found. Please select some code first.');
                 return;
             }
 
             const selection = editor.selection;
-            text = editor.document.getText(selection);
-            context = `Language: ${editor.document.languageId}, File: ${editor.document.fileName}`;
+            const text = editor.document.getText(selection);
             
             if (!text.trim()) {
-                // If no text is selected, get the entire file content
-                text = editor.document.getText();
-                if (!text.trim()) {
-                    this.showError('No code found. Please add some code to the file or select specific code to explain.');
-                    return;
-                }
-                // If using entire file, limit it to first 500 characters for performance
-                if (text.length > 500) {
-                    text = text.substring(0, 500) + '\n\n... (showing first 500 characters)';
-                }
+                vscode.window.showErrorMessage('Please select some code to explain.');
+                return;
             }
-
-            context = `Language: ${editor.document.languageId}, File: ${editor.document.fileName}`;
 
             try {
                 let response;
-                let content = '';
+                let title;
 
                 switch (message.command) {
                     case 'explainLike5':
-                        response = await this.unifiedAIService.generateExplainLike5(text, context);
+                        vscode.window.showInformationMessage('Generating explanation...');
+                        response = await this.localAIService.explainLike5(text, editor.document.languageId);
+                        title = 'Explain Like I\'m 5';
                         break;
-
-                    case 'generateProjectIdea':
-                        response = await this.localModelService.generateProjectIdea(text, context);
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'Project Idea');
-                        } else {
-                            this.showError(response.error || 'Failed to generate project idea');
-                            return;
-                        }
+                    case 'learningMode':
+                        vscode.window.showInformationMessage('Generating learning steps...');
+                        response = await this.localAIService.learningMode(text, editor.document.languageId);
+                        title = 'Learning Mode';
                         break;
-
-                    case 'addResumeBullet':
-                        response = await this.localModelService.generateInterviewExplanation(text, context);
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'Resume Bullet');
-                        } else {
-                            this.showError(response.error || 'Failed to generate resume bullet');
-                            return;
-                        }
+                    case 'interviewMode':
+                        vscode.window.showInformationMessage('Generating interview analysis...');
+                        response = await this.localAIService.interviewMode(text, editor.document.languageId);
+                        title = 'Interview Mode';
                         break;
-
-                    case 'generateAIComments':
-                        response = await this.localModelService.generateExplanation(text, context, 'comments');
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'AI Comments');
-                        } else {
-                            this.showError(response.error || 'Failed to generate AI comments');
-                            return;
-                        }
+                    case 'generateMCQs':
+                        vscode.window.showInformationMessage('Generating MCQs...');
+                        response = await this.localAIService.generateMCQs(text, editor.document.languageId);
+                        title = 'Multiple Choice Questions';
                         break;
-
-                    case 'stepByStepWalkthrough':
-                        response = await this.localModelService.generateStepByStepWalkthrough(text, context);
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'Step-by-Step Walkthrough');
-                        } else {
-                            this.showError(response.error || 'Failed to generate walkthrough');
-                            return;
-                        }
+                    case 'generateProject':
+                        vscode.window.showInformationMessage('Generating project idea...');
+                        response = await this.localAIService.generateProject(text, editor.document.languageId);
+                        title = 'Project Idea';
                         break;
-
-                    case 'plainEnglishTranslation':
-                        response = await this.localModelService.generatePlainEnglishTranslation(text, context);
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'Plain English Translation');
-                        } else {
-                            this.showError(response.error || 'Failed to generate translation');
-                            return;
-                        }
-                        break;
-
-                    case 'spotTheBug':
-                        response = await this.localModelService.generateDebugInsight(text, context);
-                        if (response.success) {
-                            content = this.formatExplanation(response.content, 'Bug Analysis');
-                        } else {
-                            this.showError(response.error || 'Failed to analyze bugs');
-                            return;
-                        }
-                        break;
-
-                    case 'generateCodeStory':
-                        const story = await this.aiEnhancer.generateCodeStory(text, context);
-                        content = this.formatExplanation(story, 'Code Story');
-                        break;
-
-                    case 'generateCodeOptimization':
-                        const optimization = await this.aiEnhancer.generateCodeOptimization(text, context);
-                        content = this.formatExplanation(optimization, 'Performance Optimization');
-                        break;
-
-                    case 'generateCodeChallenge':
-                        const challenge = await this.aiEnhancer.generateCodeChallenge(text, context);
-                        content = this.formatExplanation(challenge, 'Coding Challenge');
-                        break;
-
-                    case 'generateCodeMeme':
-                        const meme = await this.aiEnhancer.generateCodeMeme(text, context);
-                        content = this.formatExplanation(meme, 'Code Meme');
-                        break;
-
-                    case 'generateCodePrediction':
-                        const prediction = await this.aiEnhancer.generateCodePrediction(text, context);
-                        content = this.formatExplanation(prediction, 'Future Prediction');
-                        break;
-
-                    case 'generateCodeTutorial':
-                        const tutorial = await this.aiEnhancer.generateCodeTutorial(text, context);
-                        content = this.formatExplanation(tutorial, 'Code Tutorial');
-                        break;
-
-                    case 'generateCodeQuiz':
-                        const quiz = await this.aiEnhancer.generateCodeQuiz(text, context);
-                        content = this.formatExplanation(quiz, 'Interactive Quiz');
-                        break;
-
-                    case 'generateCodePortfolio':
-                        const portfolio = await this.aiEnhancer.generateCodePortfolio(text, context);
-                        content = this.formatExplanation(portfolio, 'Portfolio Showcase');
-                        break;
-
-                    case 'updateStatus':
-                        this.updateStatus();
+                    case 'openTutorial':
+                        vscode.commands.executeCommand('knowcode.openTutorial');
                         return;
-
                     default:
-                        this.showError('Unknown command');
                         return;
                 }
 
-                this.showExplanation(content);
-            } catch (error) {
-                this.showError(error instanceof Error ? error.message : 'Unknown error');
-            }
-        });
-    }
-
-    private formatExplanation(content: string, title: string): string {
-        return `
-            <h3>${title}</h3>
-            <div style="white-space: pre-wrap;">${content}</div>
-        `;
-    }
-
-    private showExplanation(content: string): void {
-        if (this.panel) {
-            this.panel.webview.postMessage({
-                command: 'showExplanation',
-                content: content
-            });
-        }
-    }
-
-    private showError(error: string): void {
-        if (this.panel) {
-            this.panel.webview.postMessage({
-                command: 'showError',
-                error: error
-            });
-        }
-    }
-
-    private updateStatus(): void {
-        if (!this.panel) return;
-
-        const editor = vscode.window.activeTextEditor;
-        let fileName = 'No file open';
-        let selectedCode = 'None';
-
-        if (editor) {
-            fileName = editor.document.fileName.split('/').pop() || 'Unknown file';
-            const selection = editor.selection;
-            const text = editor.document.getText(selection);
-            
-            if (text.trim()) {
-                selectedCode = `${text.length} characters selected`;
-            } else {
-                const fullText = editor.document.getText();
-                if (fullText.trim()) {
-                    selectedCode = `Entire file (${fullText.length} characters)`;
+                if (response.success) {
+                    await this.showExplanation(response.content, title);
                 } else {
-                    selectedCode = 'Empty file';
+                    vscode.window.showErrorMessage(`Failed to generate response: ${response.error}`);
                 }
+            } catch (error) {
+                vscode.window.showErrorMessage(`Error: ${error}`);
             }
-        }
-
-        this.panel.webview.postMessage({
-            command: 'updateStatusDisplay',
-            fileName: fileName,
-            selectedCode: selectedCode
         });
     }
 
-    public dispose(): void {
-        if (this.panel) {
-            this.panel.dispose();
-            this.panel = undefined;
-        }
+    private async showExplanation(content: string, title: string) {
+        const panel = vscode.window.createWebviewPanel(
+            'knowcodeExplanation',
+            `KNOWCODE: ${title}`,
+            vscode.ViewColumn.Two,
+            {
+                enableScripts: true,
+                retainContextWhenHidden: true
+            }
+        );
+
+        panel.webview.html = this.generateExplanationHTML(content, title);
+    }
+
+    private generateExplanationHTML(content: string, title: string): string {
+        return `
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <title>KNOWCODE: ${title}</title>
+                <style>
+                    body {
+                        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                        margin: 0;
+                        padding: 20px;
+                        background: var(--vscode-editor-background);
+                        color: var(--vscode-editor-foreground);
+                        line-height: 1.6;
+                    }
+                    .header {
+                        border-bottom: 2px solid var(--vscode-focusBorder);
+                        padding-bottom: 10px;
+                        margin-bottom: 20px;
+                    }
+                    .header h1 {
+                        margin: 0;
+                        color: var(--vscode-textLink-foreground);
+                    }
+                    .content {
+                        background: var(--vscode-input-background);
+                        border: 1px solid var(--vscode-input-border);
+                        border-radius: 6px;
+                        padding: 20px;
+                        margin-bottom: 20px;
+                    }
+                    .content pre {
+                        background: var(--vscode-textBlockQuote-background);
+                        padding: 15px;
+                        border-radius: 4px;
+                        overflow-x: auto;
+                        border-left: 4px solid var(--vscode-textLink-foreground);
+                    }
+                    .content code {
+                        background: var(--vscode-textBlockQuote-background);
+                        padding: 2px 4px;
+                        border-radius: 3px;
+                    }
+                    .footer {
+                        text-align: center;
+                        color: var(--vscode-descriptionForeground);
+                        font-size: 0.9em;
+                    }
+                    .json-content {
+                        background: var(--vscode-textBlockQuote-background);
+                        padding: 15px;
+                        border-radius: 4px;
+                        font-family: 'Monaco', 'Menlo', monospace;
+                        white-space: pre-wrap;
+                        overflow-x: auto;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h1>${title}</h1>
+                </div>
+                <div class="content">
+                    <div class="json-content">${content}</div>
+                </div>
+                <div class="footer">
+                    Powered by KNOWCODE - Making code understandable for everyone
+                </div>
+            </body>
+            </html>
+        `;
     }
 }

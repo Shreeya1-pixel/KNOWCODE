@@ -1,87 +1,48 @@
 {
   "name": "knowcode",
   "displayName": "KNOWCODE",
-  "description": "Interactive learning environment that turns code into explorable, teachable content with real-time explanations and visual overlays",
-  "version": "0.0.1",
+  "description": "Interactive code learning assistant - Explain Like I'm 5, Learning Mode, and more",
+  "version": "1.0.0",
+  "publisher": "knowcode",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shreeya1-pixel/KNOWCODE.git"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
   "categories": [
-    "Other",
+    "Education",
     "Programming Languages",
-    "Education"
+    "Other"
+  ],
+  "keywords": [
+    "code",
+    "learning",
+    "explanation",
+    "education",
+    "ai",
+    "tutorial"
   ],
   "activationEvents": [
-    "*",
-    "onLanguage:javascript",
-    "onLanguage:typescript",
-    "onLanguage:python",
-    "onLanguage:java",
-    "onLanguage:c",
-    "onLanguage:cpp",
-    "onLanguage:csharp",
-    "onLanguage:go",
-    "onLanguage:rust",
-    "onLanguage:php",
-    "onLanguage:ruby",
-    "onCommand:knowcode.explainSelection",
-    "onCommand:knowcode.explainFunction",
-    "onCommand:knowcode.explainVariable",
-    "onCommand:knowcode.showDiagram",
-    "onCommand:knowcode.toggleOverlay",
-    "onCommand:knowcode.explainWithMode",
-    "onCommand:knowcode.toggleLearningMode",
-    "onCommand:knowcode.generateMCQs",
-    "onCommand:knowcode.generateProjectIdeas",
-    "onCommand:knowcode.generateBoilerplate",
-    "onCommand:knowcode.generateAIComments",
-    "onCommand:knowcode.generateResumeBullet",
-    "onCommand:knowcode.openSetup",
-    "onCommand:knowcode.testLocalModel",
-    "onCommand:knowcode.showModelInfo",
-    "onCommand:knowcode.restartOllama",
-    "onCommand:knowcode.openPanel",
-    "onCommand:knowcode.manageAPIKeys",
-    "onCommand:knowcode.showAPIKeyStatus",
-    "onCommand:knowcode.setAIPreference",
-    "onCommand:knowcode.testAIConnections"
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "knowcode.explainSelection",
-        "title": "KNOWCODE: Explain Selection",
+        "command": "knowcode.explainLike5",
+        "title": "KNOWCODE: Explain Like I'm 5",
         "category": "KNOWCODE"
       },
       {
-        "command": "knowcode.explainFunction",
-        "title": "KNOWCODE: Explain Function",
+        "command": "knowcode.learningMode",
+        "title": "KNOWCODE: Learning Mode",
         "category": "KNOWCODE"
       },
       {
-        "command": "knowcode.explainVariable",
-        "title": "KNOWCODE: Explain Variable",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.showDiagram",
-        "title": "KNOWCODE: Show Diagram",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.toggleOverlay",
-        "title": "KNOWCODE: Toggle Overlay Mode",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.explainWithMode",
-        "title": "KNOWCODE: Explain with Mode",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.toggleLearningMode",
-        "title": "KNOWCODE: Toggle Learning Mode",
+        "command": "knowcode.interviewMode",
+        "title": "KNOWCODE: Interview Mode",
         "category": "KNOWCODE"
       },
       {
@@ -90,94 +51,38 @@
         "category": "KNOWCODE"
       },
       {
-        "command": "knowcode.generateProjectIdeas",
-        "title": "KNOWCODE: Generate Project Ideas",
+        "command": "knowcode.generateProject",
+        "title": "KNOWCODE: Generate Project",
         "category": "KNOWCODE"
       },
       {
-        "command": "knowcode.generateBoilerplate",
-        "title": "KNOWCODE: Generate Boilerplate",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.generateAIComments",
-        "title": "KNOWCODE: Generate AI Comments",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.generateResumeBullet",
-        "title": "KNOWCODE: Generate Resume Bullet",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.openSetup",
-        "title": "KNOWCODE: Open Setup",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.testLocalModel",
-        "title": "KNOWCODE: Test Local Model",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.showModelInfo",
-        "title": "KNOWCODE: Show Model Info",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.restartOllama",
-        "title": "KNOWCODE: Restart Ollama",
+        "command": "knowcode.openTutorial",
+        "title": "KNOWCODE: Open Tutorial",
         "category": "KNOWCODE"
       },
       {
         "command": "knowcode.openPanel",
         "title": "KNOWCODE: Open Panel",
         "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.manageAPIKeys",
-        "title": "KNOWCODE: Manage API Keys",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.showAPIKeyStatus",
-        "title": "KNOWCODE: Show API Key Status",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.setAIPreference",
-        "title": "KNOWCODE: Set AI Preference",
-        "category": "KNOWCODE"
-      },
-      {
-        "command": "knowcode.testAIConnections",
-        "title": "KNOWCODE: Test AI Connections",
-        "category": "KNOWCODE"
       }
     ],
     "keybindings": [
       {
-        "command": "knowcode.explainSelection",
-        "key": "ctrl+shift+e",
-        "mac": "cmd+shift+e",
+        "command": "knowcode.explainLike5",
+        "key": "ctrl+shift+5",
+        "mac": "cmd+shift+5",
         "when": "editorTextFocus"
       },
       {
-        "command": "knowcode.explainWithMode",
-        "key": "ctrl+shift+m",
-        "mac": "cmd+shift+m",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "knowcode.toggleOverlay",
-        "key": "ctrl+shift+o",
-        "mac": "cmd+shift+o",
-        "when": "editorTextFocus"
-      },
-      {
-        "command": "knowcode.toggleLearningMode",
+        "command": "knowcode.learningMode",
         "key": "ctrl+shift+l",
         "mac": "cmd+shift+l",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "knowcode.interviewMode",
+        "key": "ctrl+shift+i",
+        "mac": "cmd+shift+i",
         "when": "editorTextFocus"
       },
       {
@@ -190,17 +95,17 @@
     "menus": {
       "editor/context": [
         {
-          "command": "knowcode.explainSelection",
+          "command": "knowcode.explainLike5",
           "group": "KNOWCODE",
           "when": "editorTextFocus"
         },
         {
-          "command": "knowcode.explainFunction",
+          "command": "knowcode.learningMode",
           "group": "KNOWCODE",
           "when": "editorTextFocus"
         },
         {
-          "command": "knowcode.explainVariable",
+          "command": "knowcode.interviewMode",
           "group": "KNOWCODE",
           "when": "editorTextFocus"
         }
@@ -209,56 +114,25 @@
     "configuration": {
       "title": "KNOWCODE",
       "properties": {
-        "knowcode.enableOverlay": {
-          "type": "boolean",
-          "default": true,
-          "description": "Enable real-time overlay explanations"
-        },
-        "knowcode.explanationStyle": {
-          "type": "string",
-          "enum": ["concise", "detailed", "visual"],
-          "default": "concise",
-          "description": "Style of explanations to show"
-        },
-        "knowcode.showDiagrams": {
-          "type": "boolean",
-          "default": true,
-          "description": "Show visual diagrams for code structures"
-        },
-        "knowcode.autoExplain": {
-          "type": "boolean",
-          "default": false,
-          "description": "Automatically explain code on hover"
-        },
         "knowcode.useLocalModel": {
           "type": "boolean",
           "default": true,
-          "description": "Use local Ollama model instead of cloud API"
+          "description": "Use local Ollama model (recommended for privacy)"
         },
         "knowcode.localModelName": {
           "type": "string",
-          "default": "codellama:7b-code",
-          "description": "Name of the local model to use"
+          "default": "llama3.1:8b-instruct",
+          "description": "Local model to use (install with: ollama pull llama3.1:8b-instruct)"
         },
         "knowcode.ollamaEndpoint": {
           "type": "string",
           "default": "http://localhost:11434",
           "description": "Ollama API endpoint"
         },
-        "knowcode.cloudApiKey": {
+        "knowcode.openAIKey": {
           "type": "string",
           "default": "",
-          "description": "API key for cloud-based models (if not using local model)"
-        },
-        "knowcode.customAPIEndpoint": {
-          "type": "string",
-          "default": "",
-          "description": "Custom API endpoint URL for your own AI service"
-        },
-        "knowcode.customAPIHeaders": {
-          "type": "string",
-          "default": "{}",
-          "description": "Custom headers for your API (JSON format, e.g., {\"X-API-Key\": \"your-key\"})"
+          "description": "OpenAI API key (optional, for cloud-based explanations)"
         }
       }
     }
@@ -282,7 +156,6 @@
     "@types/mocha": "^10.0.0"
   },
   "dependencies": {
-    "marked": "^9.0.0",
-    "mermaid": "^10.0.0"
+    "marked": "^9.0.0"
   }
 } 

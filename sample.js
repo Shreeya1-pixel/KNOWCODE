@@ -1,136 +1,52 @@
-// KNOWCODE Sample File - Demonstrates various code patterns for testing
+// Sample code for testing KNOWCODE features
+// Try selecting different parts and using KNOWCODE commands!
 
-// Variable declarations
-5const userName = "John Doe";
-let userAge = 25;
-var userEmail = "john@example.com";
-
-// Function definitions
-function calculateSum(a, b) {
-    return a + b;
+function calculateFibonacci(n) {
+    if (n <= 1) return n;
+    return calculateFibonacci(n - 1) + calculateFibonacci(n - 2);
 }
 
-const multiply = (x, y) => {
-    return x * y;
-};
-
-async function fetchUserData(userId) {
-    try {
-        const response = await fetch(`/api/users/${userId}`);
-        const data = await response.json();
-        return data;
-    } catch (error) {
-        console.error('Error fetching user data:', error);
-        throw error;
-    }
-}
-
-// Class definition
-class User {
-    constructor(name, email) {
-        this.name = name;
-        this.email = email;
-        this.createdAt = new Date();
-    }
-
-    getDisplayName() {
-        return `${this.name} (${this.email})`;
-    }
-
-    async updateProfile(updates) {
-        try {
-            const response = await fetch(`/api/users/${this.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(updates)
-            });
-            return await response.json();
-        } catch (error) {
-            console.error('Error updating profile:', error);
-            throw error;
-        }
-    }
-}
-
-// Control flow examples
 function processUserData(users) {
-    const processedUsers = [];
-    
-    for (let i = 0; i < users.length; i++) {
-        const user = users[i];
-        
-        if (user.age >= 18) {
-            if (user.isActive) {
-                processedUsers.push({
-                    ...user,
-                    status: 'active_adult'
-                });
-            } else {
-                processedUsers.push({
-                    ...user,
-                    status: 'inactive_adult'
-                });
-            }
-        } else {
-            processedUsers.push({
-                ...user,
-                status: 'minor'
-            });
+    return users
+        .filter(user => user.status === 'active')
+        .map(user => ({
+            ...user,
+            processed: true,
+            score: user.age * 2 + user.experience
+        }))
+        .sort((a, b) => b.score - a.score);
+}
+
+class DataProcessor {
+    constructor(data) {
+        this.data = data;
+        this.cache = new Map();
+    }
+
+    async processWithCache(key, processor) {
+        if (this.cache.has(key)) {
+            return this.cache.get(key);
         }
+        
+        const result = await processor(this.data);
+        this.cache.set(key, result);
+        return result;
     }
-    
-    return processedUsers;
+
+    clearCache() {
+        this.cache.clear();
+    }
 }
 
-// Promise chain example
-function getUserPosts(userId) {
-    return fetch(`/api/users/${userId}/posts`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch posts');
-            }
-            return response.json();
-        })
-        .then(posts => {
-            return posts.filter(post => post.isPublished);
-        })
-        .catch(error => {
-            console.error('Error getting user posts:', error);
-            return [];
-        });
-}
+// Example usage
+const users = [
+    { name: 'Alice', age: 25, experience: 3, status: 'active' },
+    { name: 'Bob', age: 30, experience: 5, status: 'inactive' },
+    { name: 'Charlie', age: 28, experience: 4, status: 'active' }
+];
 
-// Array methods
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const processor = new DataProcessor(users);
+const result = processUserData(users);
 
-const evenNumbers = numbers.filter(num => num % 2 === 0);
-const doubledNumbers = numbers.map(num => num * 2);
-const sum = numbers.reduce((acc, num) => acc + num, 0);
-
-// Object destructuring and spread
-const user = {
-    id: 1,
-    name: 'Alice',
-    email: 'alice@example.com',
-    preferences: {
-        theme: 'dark',
-        notifications: true
-    }
-};
-
-const { name, email, preferences: { theme } } = user;
-const userCopy = { ...user, lastLogin: new Date() };
-
-// Template literals
-const greeting = `Hello, ${name}! Welcome back.`;
-const multilineString = `
-    This is a multiline
-    string using template
-    literals in JavaScript.
-`;
-
-// Export statements
-export { User, calculateSum, multiply, fetchUserData };
-export default processUserData; 
+console.log('Processed users:', result);
+console.log('Fibonacci of 10:', calculateFibonacci(10)); 

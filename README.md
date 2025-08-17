@@ -1,280 +1,122 @@
-# KNOWCODE: The Missing Link in AI-Powered Development
+# KNOWCODE - Interactive Code Learning Assistant
 
-> **"AI writes code, but who explains it?"** - KNOWCODE bridges the gap between AI-generated code and human understanding.
+**"AI writes code, but who explains it?"** - KNOWCODE bridges the gap between AI-generated code and human understanding.
 
-## The Problem We Solve
+## Features
 
-In today's AI-driven development landscape, we face a critical challenge:
+### 🎯 Core Features
+- **Explain Like I'm 5** - Simple, analogy-based explanations
+- **Learning Mode** - Step-by-step progressive learning
+- **Interview Mode** - Technical analysis with complexity assessment
+- **MCQ Generator** - Create multiple-choice questions
+- **Project Generator** - Turn code into learning projects
 
-- **AI models generate code faster than ever** (GitHub Copilot, ChatGPT, Claude)
-- **But they don't explain the code they write** - leaving developers to figure out complex logic
-- **Code comprehension is the bottleneck** - not code generation
-- **Learning curve is steep** - especially for junior developers and code reviews
+### 🚀 Quick Start
+1. **Install Ollama** (for local AI):
+   ```bash
+   curl -fsSL https://ollama.ai/install.sh | sh
+   ollama pull llama3.1:8b-instruct
+   ollama serve
+   ```
 
-**KNOWCODE transforms AI-generated code from a black box into an interactive learning experience.**
+2. **Install KNOWCODE Extension**:
+   - Download the `.vsix` file
+   - In VS Code: `Ctrl+Shift+P` → "Extensions: Install from VSIX"
+   - Select the downloaded file
 
-## Technical Architecture
+3. **Start Learning**:
+   - Open any code file
+   - Select some code
+   - Press `Ctrl+Shift+5` for "Explain Like I'm 5"
+   - Or use `Ctrl+Shift+P` and type "KNOWCODE"
 
-### Multi-Provider AI Integration
-```typescript
-// Unified AI Service with Smart Fallback
-interface UnifiedAIService {
-  generateExplanation(code: string, context: string, mode: string): Promise<ModelResponse>
-  generateExplainLike5(code: string, context: string): Promise<ModelResponse>
-  setPreferredProvider(provider: 'local' | 'cloud' | 'auto'): void
-  testConnections(): Promise<ConnectionStatus>
-}
-```
+## Keybindings
 
-### Real-Time Code Analysis Engine
-- **AST-based parsing** for accurate code structure detection
-- **Context-aware explanations** using surrounding code analysis
-- **Multi-language support** with language-specific optimizations
-- **Intelligent caching** for performance optimization
+| Feature | Windows/Linux | Mac |
+|---------|---------------|-----|
+| Explain Like I'm 5 | `Ctrl+Shift+5` | `Cmd+Shift+5` |
+| Learning Mode | `Ctrl+Shift+L` | `Cmd+Shift+L` |
+| Interview Mode | `Ctrl+Shift+I` | `Cmd+Shift+I` |
+| Open Panel | `Ctrl+Shift+P` | `Cmd+Shift+P` |
 
-### Secure API Key Management
-```typescript
-// Encrypted storage with multiple provider support
-class APIKeyManager {
-  private encrypt(keys: APIKeyConfig): string
-  private decrypt(encryptedKeys: string): APIKeyConfig
-  public getBestAPIKey(): { provider: string; key: string } | null
-}
-```
+## How It Works
 
-## Core Features
+KNOWCODE uses local AI (Ollama) to provide:
+- **Privacy** - Your code never leaves your machine
+- **Speed** - No API calls, instant responses
+- **Offline** - Works without internet
+- **Structured** - JSON-formatted explanations
 
-### 1. Explain Like I'm 5 (MVP)
-**The flagship feature that makes complex code accessible to everyone.**
+## Example Output
 
+**Input Code:**
 ```javascript
-// Before KNOWCODE: Confusing AI-generated code
 const result = data.reduce((acc, curr) => 
   acc.concat(curr.filter(x => x.status === 'active')
     .map(x => ({ ...x, processed: true }))), []);
-
-// KNOWCODE Explanation: "This code is like sorting toys! 
-// It takes all your toys, picks only the ones that are working, 
-// puts a sticker on them, and puts them all in one big box!"
 ```
 
-**Technical Implementation:**
-- **Optimized prompts** for child-friendly explanations
-- **Local Ollama integration** for privacy and speed
-- **Cloud API fallback** for enhanced capabilities
-- **Context preservation** across explanation modes
-
-### 2. Learning Mode
-**Step-by-step code education with progressive complexity.**
-
-```typescript
-interface LearningStep {
-  concept: string;
-  explanation: string;
-  codeSnippet: string;
-  complexity: 'beginner' | 'intermediate' | 'advanced';
-  nextStep?: string;
-}
-```
-
-### 3. Project Idea Generator
-**Transform any code snippet into a complete learning project.**
-
+**Explain Like I'm 5 Output:**
 ```json
 {
-  "project": {
-    "name": "Smart Todo App",
-    "complexity": "intermediate",
-    "learningPath": ["basics", "state-management", "api-integration"],
-    "estimatedTime": "2-3 weeks",
-    "prerequisites": ["JavaScript", "React basics"]
-  }
+  "analogy": "It's like sorting toys, keeping the ones that work, and putting a sticker on them before placing them in one box.",
+  "bullets": [
+    "Looks through each group of items one by one.",
+    "Keeps only items marked as active.",
+    "Adds a 'processed: true' sticker to each kept item.",
+    "Merges all kept items into a single list."
+  ],
+  "glossary": [
+    {"term": "reduce", "meaning": "A way to go through a list and build one final result."},
+    {"term": "filter", "meaning": "Keeps only items that meet a condition."},
+    {"term": "map", "meaning": "Transforms each item into a new form."}
+  ]
 }
 ```
 
-### 4. Interview Mode
-**Technical interview preparation with complexity analysis.**
+## Setup Options
 
-```typescript
-interface InterviewResponse {
-  overview: string;
-  timeComplexity: string;
-  spaceComplexity: string;
-  tradeoffs: string[];
-  optimizations: string[];
-  followUpQuestions: string[];
-}
-```
+### Local AI (Recommended)
+- **Privacy-focused** - No data sent to external servers
+- **Free** - No API costs
+- **Fast** - Runs on your machine
+- **Offline** - Works without internet
 
-### 5. MCQ Generator
-**Automated assessment creation for code comprehension.**
+### Cloud AI (Optional)
+- Get OpenAI API key
+- Open VS Code Settings
+- Search for "KNOWCODE"
+- Enter your API key
 
-```typescript
-interface MCQ {
-  question: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
-  difficulty: 'easy' | 'medium' | 'hard';
-}
-```
+## Use Cases
 
-## Technical Advantages
+- **Code Reviews** - Understand complex code quickly
+- **Learning** - Step-by-step explanations for beginners
+- **Interviews** - Prepare for technical questions
+- **Documentation** - Generate explanations for your code
+- **Teaching** - Create educational content
 
-### Performance Optimizations
-- **Lazy loading** of AI models and services
-- **Intelligent caching** with LRU eviction
-- **Async processing** with progress indicators
-- **Memory-efficient** code analysis
+## Requirements
 
-### Scalability Features
-- **Multi-provider AI support** (OpenAI, Anthropic, Gemini, Custom)
-- **Fallback mechanisms** for reliability
-- **Configurable timeouts** and retry logic
-- **Rate limiting** and error handling
+- VS Code 1.85.0 or higher
+- Node.js (for local AI)
+- 4GB RAM (for local AI models)
 
-### Developer Experience
-- **Zero-config setup** with local Ollama
-- **VS Code native integration**
-- **Real-time feedback** and error reporting
-- **Extensible architecture** for custom providers
+## Installation
 
-## API Integration
+1. Download the `.vsix` file
+2. Open VS Code
+3. Press `Ctrl+Shift+P` (or `Cmd+Shift+P` on Mac)
+4. Type "Extensions: Install from VSIX"
+5. Select the downloaded file
+6. Restart VS Code
 
-### Custom API Support
-```json
-{
-  "knowcode.customAPIEndpoint": "https://your-ai-service.com/v1/chat",
-  "knowcode.customAPIHeaders": "{\"X-API-Key\": \"your-key\"}"
-}
-```
+## Support
 
-### Provider Priority System
-1. **Local Ollama** (privacy, speed, no API costs)
-2. **Cloud APIs** (enhanced capabilities, reliability)
-3. **Custom APIs** (enterprise integration, specialized models)
-
-## Performance Metrics
-
-| Feature | Response Time | Accuracy | User Satisfaction |
-|---------|---------------|----------|-------------------|
-| Explain Like I'm 5 | < 2s (local) | 95% | 5/5 stars |
-| Learning Mode | < 3s | 92% | 5/5 stars |
-| Interview Mode | < 4s | 89% | 4/5 stars |
-| MCQ Generation | < 2s | 91% | 5/5 stars |
-
-## Use Cases & Impact
-
-### For Development Teams
-- **Code Reviews**: 60% faster onboarding of new team members
-- **Documentation**: Automated, interactive code documentation
-- **Knowledge Transfer**: Preserve institutional knowledge
-- **Quality Assurance**: Ensure code comprehension before deployment
-
-### For Learning & Education
-- **Self-Paced Learning**: Personalized code education
-- **Classroom Integration**: Interactive programming lessons
-- **Assessment Tools**: Automated quiz generation
-- **Project-Based Learning**: Guided project creation
-
-### For Enterprise
-- **Compliance**: Ensure code understanding for regulated industries
-- **Audit Trails**: Track code comprehension across teams
-- **Custom Integration**: Enterprise AI model support
-- **Scalable Training**: Consistent code education at scale
-
-## Competitive Advantages
-
-### vs. Traditional Documentation
-- **Interactive vs Static**: Real-time explanations vs. outdated docs
-- **Context-Aware vs Generic**: Code-specific vs. general explanations
-- **Multi-Modal vs Text-Only**: Visual diagrams + explanations
-
-### vs. AI Code Generators
-- **Explanation vs Generation**: We explain, they generate
-- **Learning Focus vs Speed**: Understanding vs. quick results
-- **Human-Centric vs AI-Centric**: Designed for human comprehension
-
-### vs. Code Review Tools
-- **Educational vs Critical**: Learning vs. error detection
-- **Proactive vs Reactive**: Prevent confusion vs. fix issues
-- **Comprehensive vs Limited**: Multiple explanation modes
-
-## Getting Started
-
-### Quick Setup (30 seconds)
-```bash
-# 1. Install Ollama (if using local AI)
-curl -fsSL https://ollama.ai/install.sh | sh
-
-# 2. Pull the model
-ollama pull llama2:7b-chat
-
-# 3. Install KNOWCODE extension
-# 4. Press F5 to launch
-# 5. Test with any code!
-```
-
-### Advanced Setup (with Cloud APIs)
-```bash
-# 1. Configure API keys
-Cmd+Shift+P → "KNOWCODE: Manage API Keys"
-
-# 2. Set preferences
-Cmd+Shift+P → "KNOWCODE: Set AI Preference"
-
-# 3. Test connections
-Cmd+Shift+P → "KNOWCODE: Test AI Connections"
-```
-
-## Why KNOWCODE Matters
-
-### The AI Code Generation Paradox
-As AI generates code faster, the bottleneck shifts from **code creation** to **code comprehension**. KNOWCODE addresses this fundamental shift.
-
-### The Learning Gap
-Traditional education focuses on writing code, but modern development requires understanding AI-generated code. KNOWCODE bridges this gap.
-
-### The Team Productivity Challenge
-Code reviews, onboarding, and knowledge transfer become exponentially more efficient with interactive explanations.
-
-## Future Roadmap
-
-### Phase 2: Advanced Features
-- **Code Refactoring Suggestions** with explanations
-- **Performance Analysis** with optimization recommendations
-- **Security Vulnerability Detection** with educational context
-- **Multi-File Analysis** for complex codebases
-
-### Phase 3: Enterprise Features
-- **Team Analytics** and learning progress tracking
-- **Custom Model Training** for domain-specific explanations
-- **Integration APIs** for CI/CD pipelines
-- **Advanced Security** and compliance features
-
-## Contributing
-
-We welcome contributions from the developer community! See our [Contributing Guide](CONTRIBUTING.md) for details.
-
-### Areas of Interest
-- **AI Model Integration**: Add support for new AI providers
-- **Language Support**: Extend to more programming languages
-- **Performance Optimization**: Improve response times and accuracy
-- **UI/UX Enhancement**: Better user experience and accessibility
-
-## Impact Metrics
-
-- **10,000+** developers using KNOWCODE
-- **95%** user satisfaction rate
-- **60%** reduction in code review time
-- **80%** improvement in junior developer onboarding speed
-
-## Join the Revolution
-
-**KNOWCODE isn't just another VS Code extension—it's the future of code comprehension in the AI era.**
-
-[Get Started Now](#getting-started) | [View Demo](https://knowcode.dev) | [Join Community](https://discord.gg/knowcode)
+- **Documentation**: See the Tutorial panel in the extension
+- **Issues**: Report bugs through VS Code's extension feedback
+- **Features**: Request new features through the same channel
 
 ---
 
-*"The best code is not just well-written—it's well-understood."* - KNOWCODE Team 
+**KNOWCODE** - Making code understandable for everyone 
