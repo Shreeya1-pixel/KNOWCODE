@@ -4,14 +4,14 @@
 
 ## Features
 
-### 🎯 Core Features
+###  Core Features
 - **Explain Like I'm 5** - Simple, analogy-based explanations with visual diagrams
 - **Learning Mode** - Step-by-step progressive learning with flowcharts
 - **Interview Mode** - Technical analysis with complexity assessment and algorithm diagrams
 - **MCQ Generator** - Create multiple-choice questions
 - **Project Generator** - Turn code into learning projects
 
-### 🚀 Quick Start
+###  Quick Start
 1. **Install KNOWCODE Extension**:
    - Download the `.vsix` file
    - In VS Code: `Ctrl+Shift+P` → "Extensions: Install from VSIX"
@@ -76,7 +76,7 @@ const result = data.reduce((acc, curr) =>
 
 ## Setup Options
 
-### 🎯 **Automatic Setup (Recommended)**
+### **Automatic Setup (Recommended)**
 - **One-click installation** - KNOWCODE handles everything
 - **Cross-platform** - Works on Windows, macOS, and Linux
 - **Smart detection** - Automatically detects if Ollama is needed
