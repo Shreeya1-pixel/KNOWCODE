@@ -37,6 +37,9 @@
 | Interview Mode | `Ctrl+Shift+I` | `Cmd+Shift+I` |
 | Open Panel | `Ctrl+Shift+P` | `Cmd+Shift+P` |
 
+<img width="969" height="872" alt="image" src="https://github.com/user-attachments/assets/33e3ae1d-45ea-47a3-b909-6a973c527fd9" />
+
+
 ## How It Works
 
 KNOWCODE uses local AI (Ollama) to provide:
